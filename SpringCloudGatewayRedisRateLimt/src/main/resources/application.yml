@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: SpringCloudGatewayRateLimit
+  cloud:
+    gateway:
+      redis-route-definition-repository:
+        enabled: true
+      routes:
+        - id: route1
+          uri: http://localhost:9090
+          predicates:
+            - Path=/iproute/**
+          filters:
+            - StripPrefix=1
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 10
+                redis-rate-limiter.requestedTokens: 1
+  data:
+    redis:
+      host: localhost
+      port: 6379
+server:
+  port: 9090
+management:
+  health:
+    redis:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  security:
+    enabled: false
+
+debug: true
+logging:
+  level:
+    org.springframework.cloud.gateway.filter.ratelimit: debug
