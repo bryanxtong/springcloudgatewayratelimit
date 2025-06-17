@@ -22,7 +22,7 @@ public class SpringCloudGatewayLocalRateLimitApplication {
     //https://github.com/spring-cloud/spring-cloud-gateway/pull/1703
     @Bean
     public KeyResolver keyResolver() {
-        return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName()).log();
+        return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
     }
 
     @Bean

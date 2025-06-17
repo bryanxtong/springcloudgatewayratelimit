@@ -1,20 +1,22 @@
 spring:
   cloud:
     gateway:
-      default-filters:
-      routes:
-        # =====================================
-        - id: local_rate_limiter_config_test
-          uri: http://localhost:9090
-          predicates:
-            - Path=/iproute/**
-          filters:
-            - StripPrefix=1
-            - name: RequestRateLimiter
-              args:
-                local-rate-limiter:
-                  replenish-rate: 5
-                  refresh-period: 20
+      server:
+        webflux:
+          default-filters:
+          routes:
+            # =====================================
+            - id: local_rate_limiter_config_test
+              uri: http://localhost:9090
+              predicates:
+                - Path=/iproute/**
+              filters:
+                - StripPrefix=1
+                - name: RequestRateLimiter
+                  args:
+                    local-rate-limiter:
+                      replenish-rate: 5
+                      refresh-period: 20
 debug: true
 server:
   port: 9090
