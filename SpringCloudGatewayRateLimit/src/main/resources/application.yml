@@ -3,20 +3,22 @@ spring:
     name: SpringCloudGatewayRateLimit
   cloud:
     gateway:
-      redis-route-definition-repository:
-        enabled: true
-      routes:
-        - id: route1
-          uri: http://localhost:9090
-          predicates:
-            - Path=/iproute/**
-          filters:
-            - StripPrefix=1
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 2
-                redis-rate-limiter.burstCapacity: 10
-                redis-rate-limiter.requestedTokens: 1
+      server:
+        webflux:
+          redis-route-definition-repository:
+            enabled: true
+          routes:
+            - id: route1
+              uri: http://localhost:9090
+              predicates:
+                - Path=/iproute/**
+              filters:
+                - StripPrefix=1
+                - name: RequestRateLimiter
+                  args:
+                    redis-rate-limiter.replenishRate: 2
+                    redis-rate-limiter.burstCapacity: 10
+                    redis-rate-limiter.requestedTokens: 1
   data:
     redis:
       host: localhost
@@ -33,5 +35,3 @@ management:
         include: "*"
   security:
     enabled: false
-
-debug: true

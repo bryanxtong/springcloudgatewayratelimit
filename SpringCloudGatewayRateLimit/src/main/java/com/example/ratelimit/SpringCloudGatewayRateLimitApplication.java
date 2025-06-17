@@ -20,7 +20,7 @@ public class SpringCloudGatewayRateLimitApplication {
     //https://andifalk.gitbook.io/spring-cloud-gateway-workshop/hands-on-labs/lab2#step-3-configure-a-rate-limiter
     @Bean
     public KeyResolver keyResolver() {
-        return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName()).log();
+        return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
     }
 
     @Bean
