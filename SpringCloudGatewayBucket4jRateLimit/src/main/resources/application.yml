@@ -1,21 +1,23 @@
 spring:
   cloud:
     gateway:
-      default-filters:
-      routes:
-        # =====================================
-        - id: local_rate_limiter_config_test
-          uri: http://localhost:9090
-          predicates:
-            - Path=/iproute/**
-          filters:
-            - StripPrefix=1
-            - name: RequestRateLimiter
-              args:
-                bucket4j-rate-limiter:
-                  capacity: 3
-                  period: 20s
-                  requestedTokens: 1
+      server:
+        webflux:
+          default-filters:
+          routes:
+            # =====================================
+            - id: local_rate_limiter_config_test
+              uri: http://localhost:9090
+              predicates:
+                - Path=/iproute/**
+              filters:
+                - StripPrefix=1
+                - name: RequestRateLimiter
+                  args:
+                    bucket4j-rate-limiter.capacity: 20
+                    bucket4j-rate-limiter.refillTokens: 10
+                    bucket4j-rate-limiter.refillPeriod: 1s
+                    bucket4j-rate-limiter.requestedTokens: 1
 debug: false
 server:
   port: 9090
