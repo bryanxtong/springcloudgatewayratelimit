@@ -50,7 +50,6 @@ bucket4j:
               time: 1
               unit: days
               refill-speed: interval
-debug: false
 server:
   port: 9090
 
