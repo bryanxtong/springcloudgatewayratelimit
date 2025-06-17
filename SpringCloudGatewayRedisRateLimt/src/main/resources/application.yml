@@ -1,6 +1,6 @@
 spring:
   application:
-    name: SpringCloudGatewayRateLimit
+    name: SpringCloudGatewayRedisRateLimit
   cloud:
     gateway:
       server:
